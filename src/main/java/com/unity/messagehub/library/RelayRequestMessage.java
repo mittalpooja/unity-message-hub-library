@@ -1,5 +1,6 @@
 package com.unity.messagehub.library;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
@@ -38,6 +39,22 @@ public class RelayRequestMessage implements Message {
 	// PAYLOAD
 	// 4. n*8 bytes for the receivers
 	// 5. k bytes for the message
+	public RelayRequestMessage(DataInputStream in){
+		try {
+			this.numReceivers = in.readByte();
+			this.messageSize = in.readInt();
+			
+			this.receivers = new long[numReceivers];
+			for (int i=0; i<numReceivers; i++) {
+				receivers[i]=in.readLong();
+			}
+			this.message = new byte[messageSize];
+			in.read(message);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
 	public void send(DataOutputStream out) throws IOException {
 		out.writeByte(this.numReceivers);
 		out.writeInt(this.messageSize);
@@ -66,6 +83,37 @@ public class RelayRequestMessage implements Message {
 			e.printStackTrace();
 		}
 		return null;
+	}
 
+	public byte getNumReceivers() {
+		return numReceivers;
+	}
+
+	public void setNumReceivers(byte numReceivers) {
+		this.numReceivers = numReceivers;
+	}
+
+	public int getMessageSize() {
+		return messageSize;
+	}
+
+	public void setMessageSize(int messageSize) {
+		this.messageSize = messageSize;
+	}
+
+	public long[] getReceivers() {
+		return receivers;
+	}
+
+	public void setReceivers(long[] receivers) {
+		this.receivers = receivers;
+	}
+
+	public byte[] getMessage() {
+		return message;
+	}
+
+	public void setMessage(byte[] message) {
+		this.message = message;
 	}
 }
