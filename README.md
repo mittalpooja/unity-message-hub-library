@@ -12,7 +12,7 @@ This is the library for Message Hub
 	// RELAY request message
 	// HEADER
 	// 1. Reserve 1 byte for the message type
-	// 2. Reserve 1 byte for the number of receivers (n)
+	// 2. Reserve 1 byte for the number of receivers (n) : (Assumption - maximum 255 receivers)
 	// 3. Reserve 4 bytes for the message length (k)  
 	//     (NOTE: can be optimized to 20 bits)
 	// 
@@ -32,8 +32,8 @@ This is the library for Message Hub
 	// GET_LIST_RESPONSE Message will 
 	// HEADER (2 bytes)
 	// 1. Reserve 1 byte for the message type
-	// (NOTE: Assuming 255 maximum connections)
-	// 2. Reserve 1 byte for number of clients connected to the hub (n)
+	//
+	// 2. Reserve 1 byte for number of clients connected to the hub (n) - (NOTE: Assuming 255 maximum connections)
 	//
 	// PAYLOAD
 	// 3. Payload = n * 8 bytes 
