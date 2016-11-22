@@ -1,15 +1,18 @@
 # unity-message-hub-library
 This is the library for Message Hub
 
-	// GET_ID Request type
+There are 6 types of messages that are supported by this library. We are reserving 1 Byte for the message type that can accomodate upto 256 message types. 
+
+	// TYPE 1: GET_ID Request type
 	// HEADER (1 byte)
-	public static final byte GET_ID_REQUEST=0x1; 
+	// NOTE: Future Improvements : Message type can be optimized to 3 bits
+	public static final byte GET_ID_REQUEST=0x1; 	
 	
-	// GET_LIST Request type
+	// TYPE 2: GET_LIST Request type
 	// HEADER (1 byte)
 	public static final byte GET_LIST_REQUEST=0x2;
 	
-	// RELAY request message
+	// TYPE 3: RELAY request message
 	// HEADER
 	// 1. Reserve 1 byte for the message type
 	// 2. Reserve 1 byte for the number of receivers (n) : (Assumption - maximum 255 receivers)
@@ -21,7 +24,7 @@ This is the library for Message Hub
 	// 5. k bytes for the message
 	public static final byte RELAY_REQUEST=0x3;	
 	
-	// GET_ID_RESPONSE Message will 
+	// TYPE 4: GET_ID_RESPONSE Message will 
 	// 1. Reserve 1 byte for the message type
 	// 
 	// PAYLOAD
@@ -29,7 +32,7 @@ This is the library for Message Hub
 	// FIXED MESSAGE SIZE = 9 bytes
 	public static final byte GET_ID_RESPONSE=0x4; 
 	
-	// GET_LIST_RESPONSE Message will 
+	// TYPE 5: GET_LIST_RESPONSE Message will 
 	// HEADER (2 bytes)
 	// 1. Reserve 1 byte for the message type
 	//
@@ -39,7 +42,7 @@ This is the library for Message Hub
 	// 3. Payload = n * 8 bytes 
 	public static final byte GET_LIST_RESPONSE=0x5; 
 	
-	// RELAY_RESPONSE message type
+	// TYPE 6: RELAY_RESPONSE message type
 	// HEADER
 	// 1. Reserve 1 byte for the message type
 	// 2. Reserve 4 bytes for the message length (k)  
